@@ -15,6 +15,9 @@
         android:label="test99999"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="com.example.test99999.CastOptionsProvider" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -39,9 +42,18 @@
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <service
+            android:name="com.isvisoft.flutter_screen_recording.ForegroundService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection">
+        </service>
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"-->
+<!--            android:value="com.example.test99999.CastOptionsProvider" />-->
 <!--        <service-->
 <!--            android:name="com.foregroundservice.ForegroundService"-->
 <!--            android:foregroundServiceType="mediaProjection">-->
@@ -61,12 +73,7 @@
 <!--            android:foregroundServiceType="mediaProjection"-->
 <!--            android:enabled="true"-->
 <!--            android:exported="false" />-->
-        <service
-            android:name="com.isvisoft.flutter_screen_recording.ForegroundService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="mediaProjection">
-        </service>
+
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

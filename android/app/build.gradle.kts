@@ -38,6 +38,9 @@ android {
         }
     }
 }
+dependencies {
+    implementation("com.google.android.gms:play-services-cast-framework:22.1.0")
+}
 
 flutter {
     source = "../.."

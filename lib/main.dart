@@ -300,51 +300,51 @@ class _MyAppState extends State<MyApp> {
                   ),
 
                 //local ip address and checkcapabilty
-                SizedBox(height: 20),
-                Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Column(
-                      children: [
-                        Text('Local IP Address',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 12),
-                        FutureBuilder<String?>(
-                          future: FlutterScreenRecording.getLocalIpAddress(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return CircularProgressIndicator();
-                            } else if (snapshot.hasError) {
-                              return Text('Error: ${snapshot.error}');
-                            } else {
-                              return Text('IP Address: ${snapshot.data ?? 'Unknown'}');
-                            }
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () async {
-                            final capabilities = await FlutterScreenRecording.checkCastCapabilities();
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text('Cast Capabilities'),
-                                content: Text(capabilities.toString()),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.of(context).pop(),
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          child: Text('Check Cast Capabilities'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // SizedBox(height: 20),
+                // Card(
+                //   child: Padding(
+                //     padding: EdgeInsets.all(12.0),
+                //     child: Column(
+                //       children: [
+                //         Text('Local IP Address',
+                //             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                //         SizedBox(height: 12),
+                //         FutureBuilder<String?>(
+                //           future: FlutterScreenRecording.getLocalIpAddress(),
+                //           builder: (context, snapshot) {
+                //             if (snapshot.connectionState == ConnectionState.waiting) {
+                //               return CircularProgressIndicator();
+                //             } else if (snapshot.hasError) {
+                //               return Text('Error: ${snapshot.error}');
+                //             } else {
+                //               return Text('IP Address: ${snapshot.data ?? 'Unknown'}');
+                //             }
+                //           },
+                //         ),
+                //         // SizedBox(height: 20),
+                //         // ElevatedButton(
+                //         //   onPressed: () async {
+                //         //     final capabilities = await FlutterScreenRecording.checkCastCapabilities();
+                //         //     showDialog(
+                //         //       context: context,
+                //         //       builder: (context) => AlertDialog(
+                //         //         title: Text('Cast Capabilities'),
+                //         //         content: Text(capabilities.toString()),
+                //         //         actions: [
+                //         //           TextButton(
+                //         //             onPressed: () => Navigator.of(context).pop(),
+                //         //             child: Text('OK'),
+                //         //           ),
+                //         //         ],
+                //         //       ),
+                //         //     );
+                //         //   },
+                //         //   child: Text('Check Cast Capabilities'),
+                //         // ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
