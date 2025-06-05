@@ -113,15 +113,81 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  // Future<void> _startCasting() async {
+  //   final success = await FlutterScreenRecording.startCasting();
+  //   if (success) {
+  //     setState(() {
+  //       _isCasting = true;
+  //     });
+  //   }
+  // }
+
   Future<void> _startCasting() async {
-    final success = await FlutterScreenRecording.startCasting();
-    if (success) {
-      setState(() {
-        _isCasting = true;
-      });
+    print("🚀 Flutter: _startCasting method called");
+    print("🚀 Flutter: Connected device: $_connectedDevice");
+    print("🚀 Flutter: Current casting state: $_isCasting");
+
+    try {
+      print("📞 Flutter: About to call FlutterScreenRecording.startCasting()");
+
+      final success = await FlutterScreenRecording.startCasting();
+
+      print("✅ Flutter: startCasting returned: $success");
+
+      if (success) {
+        setState(() {
+          _isCasting = true;
+        });
+        print("✅ Flutter: UI state updated - _isCasting = true");
+
+        // Show success message
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Casting started successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } else {
+        print("❌ Flutter: startCasting returned false");
+
+        // Show error message
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to start casting'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      print("💥 Flutter: Exception in _startCasting: $e");
+
+      // Show error message
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error starting casting: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
+// Also add this test method to verify the method channel works:
+  Future<void> _testDirectMethodCall() async {
+    print("🧪 Testing direct method channel call...");
+    try {
+      const platform = MethodChannel('flutter_screen_recording');
+      final result = await platform.invokeMethod('startCasting');
+      print("🧪 Direct method channel result: $result");
+    } catch (e) {
+      print("💥 Direct method channel error: $e");
+    }
+  }
   Future<void> _stopCasting() async {
     final success = await FlutterScreenRecording.stopCasting();
     if (success) {
@@ -206,6 +272,14 @@ class _MyAppState extends State<MyApp> {
                       ],
                     ),
                   ),
+                ),
+
+                SizedBox(height: 20),
+
+                ElevatedButton(
+                  onPressed: _testDirectMethodCall,
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                  child: Text('Test Method Channel'),
                 ),
 
                 SizedBox(height: 20),
